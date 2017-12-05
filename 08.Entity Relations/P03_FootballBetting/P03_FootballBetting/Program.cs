@@ -1,13 +1,13 @@
 ﻿using System;
-using P03_SalesDatabase.Data;
+using P03_FootballBetting.Data;
 
-namespace P03_SalesDatabase
+namespace P03_FootballBetting
 {
     public class Program
     {
         public static void Main(string[] args)
         {
-            using (var db = new SalesContext())
+            using (var db = new FootballBettingContext())
             {
                 db.Database.EnsureCreated();
             }

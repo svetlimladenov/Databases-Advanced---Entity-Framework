@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using P02_DatabaseFirst.Data;
 using P02_DatabaseFirst.Data.HomeworkExercises;
 using P02_DatabaseFirst.Data.Models;
+using P02_DatabaseFirst.ViewModels;
 
 namespace P02_DatabaseFirst
 {
@@ -31,6 +32,24 @@ namespace P02_DatabaseFirst
 
             //var emp = new EmployeesAndProjects();
             //emp.Run();
+
+            var context = new SoftUniContext();
+
+            var townEmployeesCount = context
+                .Employees
+                .GroupBy(e => e.Address.Town.Name)
+                .Select(g => new TownViewModel(g.Key,g.Count()))             
+                .OrderByDescending(t => t.ResidentCount)
+                .ToArray();
+
+            var employeesProfileView = context
+                .Employees
+                .Select(e => new EmployeeProfileViewModel(e))
+                .ToList();  
+            foreach (var epv in employeesProfileView)
+            {
+                Console.WriteLine(epv.ToString());
+            }
         }
     }
 }
